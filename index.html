@@ -11,23 +11,18 @@
       <div class="card">
         <h1>План по изучению Vue.js</h1>
         <div class="steps">
-          <div class="steps-content">{{ steps[activeIndex].text }}</div>
+          <div class="steps-content">{{ activeStep.text }}</div>
           <ul class="steps-list">
             <li
               class="steps-item"
-              :class="[{'active': activeIndex === idx}, {'done': (activeIndex - 1) === idx}]"
+              :class="[{'active': idx === activeIndex}, {'done': idx < activeIndex}]"
               v-for="(step, idx) in steps"
-              :key="step.index"
             >
               <span @click="setActive(idx)">{{idx + 1}}</span> {{step.title}}
             </li>
           </ul>
-          <div v-show="vShow">
-            <button
-              class="btn"
-              @click="prev"
-              :class="activeIndex === 0 ? 'disabled': ''"
-            >
+          <div v-if="vShow">
+            <button class="btn" @click="prev" :disabled="prevDisabled">
               Назад
             </button>
             <button
@@ -41,7 +36,7 @@
               Закончить
             </button>
           </div>
-          <div v-show="!vShow">
+          <div v-else>
             <button class="btn" @click="reset">Начать заново</button>
           </div>
         </div>

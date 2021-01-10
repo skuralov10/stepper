@@ -39,8 +39,8 @@ const App = {
   methods: {
     prev() {
       // когда нажимаем кнопку назад
-      if (this.activeIndex > 0) {
-        this.activeIndex -= 1
+      if (this.activeIndex !== 0) {
+        this.activeIndex--
       }
     },
     reset() {
@@ -50,8 +50,8 @@ const App = {
     },
     nextOfFinish() {
       // кнопка вперед или закончить
-      if (this.activeIndex < 4) {
-        this.activeIndex += 1
+      if (this.activeIndex < this.steps.length) {
+        this.activeIndex++
       }
     },
     setActive(idx) {
@@ -67,6 +67,12 @@ const App = {
     // 1. текущий выбранный шаг
     // 2. выключена ли кнопка назад
     // 3. находимся ли мы на последнем шаге
+    activeStep() {
+      return this.steps[this.activeIndex]
+    },
+    prevDisabled() {
+      return this.activeIndex === 0
+    },
   },
 }
 
